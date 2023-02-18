@@ -1,7 +1,315 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 1 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184 Rasterizer</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
+<h1 align="middle">Project 1: Rasterizer</h1>
+<h2 align="middle">Alton Sturgis, Erik Nelson, CS184-SP23</h2>
+
+<br><br>
+
+<div>
+
+<h2 align="middle">Overview</h2>
+<p>In this project, we created a working rasterizer, able to display various forms of triangles and processing effects on them.
+ We also learned to use additional methods to counter aliasing artifacts such as supersampling, texture sampling for mappings, and utilizing mipmaps.
+</p>
+
+<h2 align="middle">Section I: Rasterization</h2>
+
+<h3 align="middle">Part 1: Rasterizing single-color triangles</h3>
+
+<p>We rasterize triangles by first capturing the bounding box of the triangle (max, min of x,y values), and then we iterate through the points in the bounds with a three-point triangle test using the equation from lecture 2, slide 47:</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image21.png" align="middle" width="400px"/>
+        <figcaption align="middle"></figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>This equation has a point input and can check if the point is inside the plane of a line by creating a normal vector inside the plane. We check if the point is inside all three of the lines if its value is greater than 0. There is a case regarding the ‘winding’ of how the dXi points are calculated, and we think about the cases where a point is less than zero in the output for all of the line planes. If so, we can assume that the winding pattern is different and we can still fill in the pixel.
+This algorithm is no worse than one that checks each sample within the bounding box of the triangle because this is essentially all that we do.
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image8.png" align="middle" width="400px"/>
+        <figcaption align="middle">basic/test4.svg</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+The pixel inspector is zoomed in on the magenta triangle where there is an aliasing artifact because this image does not have supersampling implemented.
+</p>
+
+<h3 align="middle">Part 2: Antialiasing triangles</h3>
+
+<p>
+To supersample, we effectively resize the sample buffer to be the size of the final frame buffer multiplied by the sample rate, this allows us to store the needed amount of “subpixels,” which represent the sample grid inside of an output pixel. The way we structured our sample buffer is that subpixel data is stored sequentially, incrementing x until the end of the subpixel, then y, repeating until all subpixels have been sampled. When outputting to the frame buffer, we average out these subpixels (made easier by simply averaging the sequential data), creating a final pixel. This final pixel gives us the added information from extra sampling while also being placed into the resolution “container” of the current window.
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image17.png" align="middle" width="400px"/>
+        <figcaption align="middle">One Sample</figcaption>
+      </td>
+      <td>
+        <img src="images/image22.png" align="middle" width="400px"/>
+        <figcaption align="middle">Four Samples</figcaption>
+      </td>
+      </tr>
+  </table>
+</div>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image6.png" align="middle" width="400px"/>
+        <figcaption align="middle">Sixteen Samples</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  As we increase the number of samples, the amount of pixel breakup is reduced. There are fewer gaps between parts of the triangle, and the edges are far cleaner, giving the impression of a higher resolution. These pixel gaps appear because of a lack of sampling, our sampling location simply isn’t inside of the triangle. By increasing the number of locations that we sample, we are able to construct more of the triangle in the final image.
+ This was a part that took us a large amount of time to work through, not only through design, but also with various bugs that came up through the way we were sampling and managing the buffers. We originally were trying to use a non-sequential, grid-based sample-buffer, but we switch to sequential to solve issues of indexing into the sample buffer.
+</p>
+
+<h3 align="middle">Part 3: Transforms</h3>
+<p>
+  We created a waving/dancing robot using the official Berkeley color hexcodes. In order to make this, we modified the forearms with the polygons from the legs and translated them accordingly.
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image10.png" align="middle" width="400px"/>
+        <figcaption align="middle">my_robot.svg</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image1.png" align="middle" width="400px"/>
+        <figcaption align="middle">From Lecture</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  To accomplish this task, we filled out the respective matrices in transforms.c with the above values, starting with the identity matrix in each case and modifying specific values.
+</p>
+
+<h2 align="middle">Section II: Sampling</h2>
+
+<h3 align="middle">Part 4: Barycentric coordinates</h3>
+<p>
+Barycentric coordinates are coordinates that are relative to some point in real space. In this case of rasterizing triangles, the barycentric coordinates are those relative to each of the vertices. We do this by obtaining constants alpha, beta, gamma for some x,y and their relative distance to each of the vertices:
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image9.png" align="middle" width="400px"/>
+        <figcaption align="middle">From Lecture</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+From this, we can obtain a barycentric coordinate with this:
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image18.png" align="middle" width="400px"/>
+        <figcaption align="middle"></figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  Because we are working with colors which are 3D vectors, we can obtain a sum to blend different colors from the corners of a triangle as shown below.
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image4.png" align="middle" width="400px"/>
+        <figcaption align="middle">Our Blended Triangle</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+And below we have a working version of test7.svg, showing this feature in more detail.</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image3.png" align="middle" width="400px"/>
+        <figcaption align="middle">svg/basic/test7.svg</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
+
+<p>
+  We implemented texture mapping by obtaining the uv-barycentric coordinate. We start by obtaining some 0 < u, v < 1 value from the previously found barycentric equation. We then scale by the width-1, height-1 of the mipmap and its current level. For nearest, we obtain the nearest pixel with a round() call, and for the bilinear sampling, we obtain floor,ceil of the given u,v value and utilize this equation (with color values as the variables) for obtaining its bilinear color value:
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image13.png" align="middle" width="400px"/>
+        <figcaption align="middle">From Lecture</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  Below are the various required combinations of filtering techniques
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image7.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest sampling with 1 sample per pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/image16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Bilinear sampling with 1 sample per pixel</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/image11.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest sampling with 16 samples per pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/image12.png" align="middle" width="400px"/>
+        <figcaption align="middle">Bilinear sampling with 16 samples per pixel</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  The difference between these methods is that supersampling methods make the overall look blurry because of the intense amount of sampling. This gives the impression of a higher total resolution at the expense of defined edges.
+</p>
+
+<h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
+
+<p>
+Level sampling involves levels of textures of decreasing quality that prevent aliasing artifacts for far-away textures and also improve rendering performance. We implemented this by obtaining dy/uv and dx/uv by computing the barycentric coordinates for y+1 and x+1 within the uv map respectively. We then obtain the difference between these values as du,v/x and du,v/y and input these into this equation:
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image2.png" align="middle" width="400px"/>
+        <figcaption align="middle"></figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  D is the returned level. We round this value for nearest sampling, and we do two-float interpolation for bilinear sampling to obtain a continuous value of the level: (float a * (float f - 1)) + (float b * (f)).
+  Level zero makes parts where there is a lot of ‘stretch’ have many aliasing artifacts where text or other details are not as discernable. The nearest level makes many of these parts detectable (test one can now have all of the lines visible), but bilinear level makes some of the text on test 5 look better on the pixel inspector. For speed, level zero and nearest level are similarly fast, albeit with the extra level calculation, while linear level requires two-pixel calculations in this implementation, making it the slowest. For memory, all of these only utilize the mipmap so they do not differ too much. Antialiasing is the best with linear or nearest level, but does fail in certain examples with large text (see the images below).
+  With regards to the other antialiasing methods, a picture with 16x samples per pixel, bilinear level sampling, and bilinear pixel sampling is the best combination. In terms of time, supersampling is the slowest and takes by far the most amount of memory, pixel sampling and levels are about the same in terms of performance, with bilinear sampling being slower because of the double color calculation.
+</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/2nearest.png" align="middle" width="400px"/>
+        <figcaption align="middle">Level nearest, nearest pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/0near.png" align="middle" width="400px"/>
+        <figcaption align="middle">Level zero, nearest pixel</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/nearbi.png" align="middle" width="400px"/>
+        <figcaption align="middle">Level nearest, bilinear pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/0bi.png" align="middle" width="400px"/>
+        <figcaption align="middle">Level zero, bilinear pixel</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>
+  While implementing this function, we ran into issues with images going out of bounds, leaving streaks and stray pixels beyond where they should be expected. We fixed this by implementing clamping to keep our barycentric values and the final image in check.
+</p>
+
+<h2 align="middle">Section III: Art Competition</h2>
+<p>If you are not participating in the optional art competition, don't worry about this section!</p>
+
+<h3 align="middle">Part 7: Draw something interesting!</h3>
+
+</body>
 </html>
