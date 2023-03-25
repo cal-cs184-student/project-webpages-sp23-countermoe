@@ -1,7 +1,683 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-2 here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS184 Project 3-2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c93e8c57-0c85-487a-8717-ee542b53001a" class="page sans"><header><h1 class="page-title">CS184 Project 3-2</h1></header><div class="page-body"><p id="ea990ff8-bb71-4104-b489-9911ac8e8f7d" class="">Erik Nelson, Alton Sturgis</p><p id="abaca036-3e27-481e-9165-e1f94d673765" class="">We decided to implement Part 1: Mirror and Glass Materials and Part 4: Depth of Field!</p><h1 id="146d6387-0428-4534-b99e-8473cb8d174e" class="">Overview</h1><p id="434538e4-b74a-48be-ada5-7de5f0f662b6" class="">We implemented the Mirror and Glass materials part by first calculating reflection, mirror material, refraction, and glass material. We also completed Depth of Field, which allows to achieve a natural looking bokeh effect using a thin lens model instead of the pin-hole model.</p><h1 id="89f63ecc-402d-48ee-81d2-ddcaaac2cb3d" class="">Part 1: Mirror and Glass Materials </h1><p id="ad1c7a59-a982-4089-b907-1cd473d7af76" class="">The approach here was to implement the BSDF::reflect function with the input wo, wi, such that: </p><figure id="4b795335-ebe8-43b8-b4d4-b033f784487c" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>=</mo><mo>−</mo><msub><mi>w</mi><mi>i</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mo stretchy="false">(</mo><msub><mi>w</mi><mi>o</mi></msub><mo>⋅</mo><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">w_i = -w_i + (2*(w_o\cdot normal) * normal </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">ma</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">ma</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span></span></div></figure><p id="9bc8ab03-65f5-4094-967e-26f3aed89657" class="">where normal is some vector (0,0,1).</p><p id="00663559-efc8-4f5c-a0fa-a6d5ae181a7e" class="">We then implement MirrorBSDF::sample_f, which sets the input pdf to 1, calls reflect on wo, wi, and then returns the reflectance divided by abs_cos_theta(wi). In particular, this function writes a reflection of wo to wi, and returns a trigonometric version of wi so that it cancels out the cosine that at_least_one_bounce_radiance function will multiply by. </p><p id="dce3dffc-ed46-4340-9323-10c9e3d6978d" class="">With the mirror bsdf in place, we then implement refraction, which references lecture’s explanation of Law of Refraction:</p><figure id="6c09746d-4796-4483-9493-71472e4103c4" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled.png"><img style="width:984px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled.png"/></a></figure><p id="de2ebe44-50d6-48d6-89d4-933e25a7e65f" class="">The spec explained some optimizations and clarifications such that it allowed us to utilize the BSDF’s ior value as the eta value in this equation. We set the eta to be 1 / ior if the ray is entering (wo.z, or cosine theta is positive), else eta = ior if negative, because the ray is exiting. If there is total internal reflection, as given by the equation in the figure above, we return false in BSDF::refract, else return true and edit the wi values as shown here:</p><figure id="c0575a11-7bb0-42f8-b9e8-cc3243790320" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%201.png"><img style="width:579px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%201.png"/></a></figure><p id="4b5d1f8b-48e2-4b3e-9e19-926645b1c4dd" class="">In the sample_f function for the refraction bsdf, we recalculate the eta value, and return transmittance / abs_cos_theta(wi) / eta^2, because we want to cancel out the cosine term in at_least_one_bounce_radiance, similar to the method done previously for the mirror. </p><p id="b0e5ee6d-b543-4a44-9ae1-5a67c2cb417c" class="">With refraction done, we worked on the glass bsdf sample_f function which follows the pseudo code in the spec very closely:</p><figure id="dcd82861-8c40-40e5-ad9d-35b88500a390" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%202.png"><img style="width:661px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%202.png"/></a></figure><p id="280acbb0-8987-4ea6-8038-8c77e4f0856b" class="">For the R coefficient, the calculation is </p><figure id="7a64ea4a-8489-430c-a3d1-1a5c09b9d17a" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mn>0</mn><mo>=</mo><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>η</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>η</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R0 = ((1 - \eta) / (1 + \eta))^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">((</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></div></figure><figure id="3f7fd9f1-9879-4ef8-ada4-e71b80c3ceb8" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mo>=</mo><mi>R</mi><mn>0</mn><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>R</mi><mn>0</mn><mo stretchy="false">)</mo><mo>∗</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mi>b</mi><mi>s</mi><mo stretchy="false">(</mo><msub><mi>w</mi><mi>o</mi></msub><mi mathvariant="normal">.</mi><mi>z</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">R = R0 + (1-R0) * (1 - abs(w_o.z))^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ab</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span></div></figure><p id="03fee1af-a69c-4856-bea3-4827b9ceb6fa" class="">Which is a modification from the actual schlick reflection approximation:</p><figure id="3204a52d-91d3-4a39-9a17-1a217dfd0e1d" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%203.png"><img style="width:277px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Untitled%203.png"/></a></figure><p id="1fe8d263-c6e0-40d9-b91d-679d9307727b" class="">because we know that n1 = 1, and n2 is the eta value present in the bsdf.</p><p id="1fc4862e-9c99-4016-8e42-e316abcb7722" class="">Once again, we return a value that has a abs_cos_theta(wi) call because we need to cancel out the cosine in the at_least_one_bouce_radiance.</p><p id="436a2ea8-dd46-4216-ad93-1caac0f8d043" class="">“Show a sequence of six images of scene <code>CBspheres.dae</code> rendered with <code>max_ray_depth</code> set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.”:</p><p id="5a40c80d-bba8-4e04-a920-d3c4a13670ba" class="">I describe the differences in each m value render:</p><p id="5c3096e6-1918-4d36-bfab-d8403c97a47f" class="">m=0: No rays are rendered because with a ray.depth of 0, we instantly return from most functions instead of calculating the path. The point light is rendered because it is part of the scene.</p><figure id="7d050431-9ce5-4e05-9f68-e0162a06a830" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres0.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres0.png"/></a></figure><p id="ac412370-c286-44aa-a592-f0835285bbbc" class="">m=1: All the basic walls are rendered, but reflections / refractions on the spheres are not traced.</p><figure id="cf94b4a5-a2f6-47cb-be0f-076241db161d" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres0%201.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres0%201.png"/></a></figure><p id="a82dd80e-2b72-487b-b08f-f6d6e02a1d8d" class="">m=2: The first mirror sphere is rendered. but the second has a dim version of what it should be refracting. </p><figure id="2c64c835-c23e-4729-b28f-f5b04dfb7d08" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres2.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres2.png"/></a></figure><p id="e6d1454f-c211-4e2c-8c33-5b6b823bb374" class="">m=3: This now has the glass sphere refracting its light, but we can see that the mirror cannot render what the sphere has in its reflection. This is because the spheres are going from black (m=2, 3) to reflecting/refracting in its first pass, which does not include additional bounces. This is why the refraction sphere is dark — it needs m=4 to make an image. </p><figure id="f7b5718c-1c8f-4d5f-8d94-9377aee6c057" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres3.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres3.png"/></a></figure><p id="230d3332-268c-448c-9011-5cd587469bb0" class="">m=4: We can see the mirror sphere reflect what the glass sphere has refracted at that position. We can also see that the right sphere is “clearer” in how it is less dark, and has the dark lighting artifact at the bottom of the sphere removed in favor of the light magnification effect. </p><figure id="b6410c19-9d74-42a1-b80c-d6ad2d7edae3" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres4.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres4.png"/></a></figure><p id="45ad79c0-fc4e-4ad5-887b-2247c888d366" class="">m=5: No visible differences </p><figure id="e6b47f48-6b68-4d40-9fc3-063e9fbe26ea" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres4%201.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres4%201.png"/></a></figure><p id="e840015a-9cc0-4616-82b1-e75d1427fe24" class="">m=100 : No visible differences, some minor brightening on the glass effects (the top of the right sphere has more light) </p><figure id="4b2a5013-20ed-44d4-83f9-da19ebe489f4" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres100.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres100.png"/></a></figure><p id="386ef25f-ed0b-4cb4-9196-b0184bc8e5e9" class="">
+</p><p id="43bf68a0-8dbe-4861-995d-73e2e4e3bb73" class="">Final Result: CBspheres.dae with m=7, l=4, s=2048. It took 260 seconds to render on 12 threads.</p><figure id="c787c66a-f15d-4616-b150-7401897c4925" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres.png"/></a></figure><p id="7d528648-bd6d-47f4-a933-a189b1eee18f" class="">
+</p><p id="16710179-bee0-4342-8c83-1da917156237" class="">Result: CBlucy.dae with m=7, l=4, s=2048. It took 168 seconds to render on 12 threads.</p><figure id="c2171b02-f8ce-491b-93ab-4213451baf57" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres%201.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/spheres%201.png"/></a></figure><p id="e003bf7b-128f-4df9-b754-927a44637244" class="">Result: CBdragon.dae with m=7, l=4, s=2048. It took 231 seconds to render on 12 threads.</p><figure id="fb0d1ad2-61e7-48dc-a8e4-3ef2094fbde5" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/dragon.png"><img style="width:480px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/dragon.png"/></a></figure><p id="468aae70-1a27-498e-b824-74b9f0cf06ef" class="">
+</p><h1 id="0f405933-0a43-4165-bfd8-5e328ba72746" class="">Part 4: Depth of Field </h1><p id="3aa07b3a-194e-46f8-b592-d9a07ad99b62" class="">We also implemented depth of field into our pathtracer, allowing us to use a given focal distance to keep a specific distance from the camera in focus, while the rest of the image is blurred. In essence, we simulate a thin lens (able to refract without any actual thickness) in order to achieve this. When we want to create this effect, we specify a lens radius and a focal distance, replacing the ray generation from 3-1 (the pin-hole model) with this new “thin lens” model. </p><p id="ecbe842e-fbe1-45a3-8f66-cf7db015c443" class="">
+</p><p id="f8249d35-e39d-4604-8010-aea5f7a9567f" class="">This thin lens model differs from the pin-hole model in several ways. Instead of directly sending a ray from the camera to some point in the scene, we simulate this lens in camera space, allowing radiance to enter the “screen” from a random sampled point refracted from the scene through the lens. In order to calculate this ray, we must calculate the vector sent through the lens, and the point on this focal distance “plane.”</p><figure id="71465b29-07de-418a-bef3-01fcef84a619" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Screenshot_2023-03-23_at_8.18.40_PM.png"><img style="width:1340px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/Screenshot_2023-03-23_at_8.18.40_PM.png"/></a><figcaption>From 3-2 Task 4 Spec</figcaption></figure><p id="2e3147f1-8448-4c26-b698-a86020bab7e4" class="">We notice that the red segment and ray effectively act as the pin-hole model. No refraction exists between the scene and the image screen. In any other case, with point on the lens is sampled as (sx, sy, 0), which we calculate with given <code>rndR</code> and <code>rndTheta</code> through the following equation:</p><figure id="b039bb43-039f-43d7-b11b-c27fc569e3f3" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mi>L</mi><mi>e</mi><mi>n</mi><mi>s</mi><mo>=</mo><mo stretchy="false">(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>R</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mtext>√</mtext><mi>r</mi><mi>n</mi><mi>d</mi><mi>R</mi><mo>⋅</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mi>r</mi><mi>n</mi><mi>d</mi><mi>T</mi><mi>h</mi><mi>e</mi><mi>t</mi><mi>a</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>l</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>R</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mtext>√</mtext><mi>r</mi><mi>n</mi><mi>d</mi><mi>R</mi><mo>⋅</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>r</mi><mi>n</mi><mi>d</mi><mi>T</mi><mi>h</mi><mi>e</mi><mi>t</mi><mi>a</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">pLens=(lensRadius √rndR⋅cos(rndTheta),lensRadius √rndR⋅sin(rndTheta), 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">L</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.05em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mord">√</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.05em;vertical-align:-0.25em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mord">√</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></div></figure><p id="6060f67d-49ee-461f-988e-236548383e37" class="">We then find the point in focus on the focal plane by performing a ray-plane intersection. Given a defined plane and it’s normal (which is simply (0, 0, 1)), we find the point in focus, pfocus, by the following equations: </p><figure id="6ae61800-33b9-483b-ae8e-56aee1039267" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>t</mi><mo>=</mo><mi>d</mi><mi>o</mi><mi>t</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>p</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>e</mi><mi>P</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>o</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>p</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>e</mi><mi>N</mi><mi>o</mi><mi>r</mi><mi>m</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>d</mi><mi>o</mi><mi>t</mi><mo stretchy="false">(</mo><mi>d</mi><mo separator="true">,</mo><mi>p</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>e</mi><mi>N</mi><mi>o</mi><mi>r</mi><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">t = dot((planePoint - o), planeNorm) / dot(d, planeNorm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mopen">((</span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">an</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal">o</span><span class="mord mathnormal">in</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">o</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">an</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">m</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">an</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">m</span><span class="mclose">)</span></span></span></span></span></div></figure><figure id="2e669368-c4fd-4bc2-9f7c-8aeed88e9ba1" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mi>f</mi><mi>o</mi><mi>c</mi><mi>u</mi><mi>s</mi><mo>=</mo><mi>o</mi><mo>+</mo><mi>t</mi><mo>∗</mo><mi>d</mi><mo separator="true">;</mo></mrow><annotation encoding="application/x-tex">pfocus = o + t * d;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">oc</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">o</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mpunct">;</span></span></span></span></span></div></figure><p id="1b790814-8838-432c-8ca9-22ebda36e497" class="">where o is the current pixel as defined by (-X, -Y, 1), d is the direction (normalized o, in this case of the red ray), planePoint is an arbitrary point on the plane (we simply use (0, 0, - focalDistance)), planeNorm is the plane’s normal (0, 0, 1), and t is the distance until the ray hits the plane. In essence, we apply the concepts from this lecture slide in order to find the point in focus:</p><figure id="aa00b6f2-7c70-499d-877e-590173f1b6e0" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/slide-20.jpg"><img style="width:1440px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/slide-20.jpg"/></a><figcaption>From lecture</figcaption></figure><p id="f3b5d5e3-4608-4691-bac0-16b4f75171db" class="">
+</p><p id="5e8dc55f-639a-4975-9c53-3b96ddb4fd72" class="">From here, we simply create the find the blue line segment from the above image and create the ray according to spec while converting everything from camera space to world space.</p><p id="cf88c96f-996c-4381-bb8a-3505fad05d2b" class="">Here’s four pictures focused on separate places in the scene in CBdragon.dae:</p><figure id="28a18b2e-9648-4709-9692-2c00e840d678" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-23_0-47-13.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-23_0-47-13.png"/></a><figcaption><strong>Focal distance = 4.5, focused on the front of the dragon</strong></figcaption></figure><p id="02e5bdbd-ad56-4837-a844-2866985331dd" class="">
+</p><figure id="b55f65fd-a36e-47ae-9cb6-c522ba7aedce" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-41-18.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-41-18.png"/></a><figcaption><strong>Focal distance = 4.75, focused on the body of the dragon</strong></figcaption></figure><p id="04d59482-eef4-4554-812b-7759e3fdb104" class="">
+</p><figure id="ab85946f-d0e1-4ebc-a190-c3946c3f95ef" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-26-18.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-26-18.png"/></a><figcaption><strong>Focal Distance = 5, focused on the back of the dragon</strong></figcaption></figure><p id="de6da66e-7964-4e28-b2a2-64d8d720e08a" class="">
+</p><figure id="fc757409-4397-4375-aa63-defaa9900d80" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-12-28.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/CBdragon_screenshot_3-24_20-12-28.png"/></a><figcaption><strong>Focal distance = 6, focused on the rear wall</strong></figcaption></figure><p id="d7a9d29d-b686-45b5-a0f1-80d7aec992ef" class="">As can be seen, the part of the scene located close to the focus distance from the camera is clear, while objects further from the focus plane get progressively blurrier.</p><p id="087443c5-f8ac-46b0-ad84-6d5cc6df522d" class="">
+</p><p id="a7371ad2-bfb5-43c2-bcb9-d4ba7098500b" class="">And finally, here’s CBbunny.dae, focused on the subject with <code>-d = 4.6</code>, with 4 different apertures or lens radii in our model.</p><figure id="77f9a72f-cb41-4b66-8203-b3740f7985b3" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-37-59.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-37-59.png"/></a><figcaption><strong>Lens radius = 0.05 (Depth of field is barely noticeable, but can be seen on the rear wall and edges of the image)</strong></figcaption></figure><p id="6368c07d-4bb1-43b4-b5fa-15803d01292f" class="">
+</p><figure id="fafbc8a0-a9bb-486f-bb6b-db8753f88fd6" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-25-30.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-25-30.png"/></a><figcaption><strong>Lens radius = 0.1 (This image has a more natural bokeh effect)</strong></figcaption></figure><p id="784db046-73ef-4e05-8ec0-45f6709f9892" class="">
+</p><figure id="b6cfb4a4-9270-411b-8e71-f6c20373faf0" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-9-26.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-9-26.png"/></a><figcaption><strong>Lens radius = 0.23</strong></figcaption></figure><p id="f2fdc36d-9be2-41b8-95aa-add518958cda" class="">
+</p><figure id="6cc0e1fd-1511-433e-a246-c4b1f5489103" class="image"><a href="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-16-53.png"><img style="width:1280px" src="CS184%20Project%203-2%20c93e8c570c85487a8717ee542b53001a/cbbunny_screenshot_3-24_21-16-53.png"/></a><figcaption><strong>Lens radius = 0.46</strong></figcaption></figure><p id="fca1a478-2e0f-425e-b6cc-6a9cd358ec95" class="">
+</p><p id="1e607059-9eff-401e-aede-0fd22142cf3c" class="">The smaller the lens radius, the closer the image gets to the pin-hole model. We remember from the image from spec that a sampled ray through the lens is equivalent to the pin-hole model if shot directly through the center of the lens. So it makes sense that the image approaches this pin-hole model as the sampled lens point approaches the center of the lens, lessening the refraction of rays shot through it.</p><h1 id="a2790324-fd15-4783-9e4b-2525cc1dae03" class="">Collaboration</h1><p id="8fb78f21-d5c7-4162-9722-dc8c4d3f5442" class="">To complete this project, we evenly split the tasks. as the two tasks didn’t overlap at all and were fairly short, this was a much less involved project than 3-1. Alton worked on implementing the first task, mirror and glass materials, while Erik completed task 4, depth of field. We each worked on our part of the write up while helping each other out when needed.</p><p id="7dfe8363-2b07-4491-a9f2-a1e223a979ab" class="">
+</p></div></article></body></html>
